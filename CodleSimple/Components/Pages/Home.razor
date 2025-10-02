@@ -1,0 +1,36 @@
+﻿@page "/"
+@using CodleWeb.Components.Elements
+@using CodleWeb.Services
+@rendermode InteractiveServer
+@inject IGameSessionService GameSessionService
+
+<PageTitle>Home</PageTitle>
+
+<div class="Codle" @ref="CodleResetFix" @onkeydown="OnPhysicalKeyboardClick" tabindex="0">
+    <div class="TopPageTitle">
+        <h1 class="CodleTitleStyling">Codle</h1>
+        <h3 class="CodleSubtitleStyling">A software development related version of wordle</h3>
+    </div>
+    <GameGrid Grid="@grid" GridStyles="@gridStyles"/>
+    <div class="TopPageTitle PositionMessage">
+        <h3 class="CodleMessageNotice">@((MarkupString)codle.Message)</h3>
+    </div>
+    <div class="TopPageTitle PositionExplanation">
+        <h1 class="CodleTitleStyling">The meaning</h1>
+        <h3 class="CodleSubtitleStyling">
+            @(codle.GameOver ? codle.CodleWordExplain : "The meaning of the word will be shown after the game is over.")
+        </h3>
+    </div>
+    <button 
+        class="RestartGameButton" 
+        @onclick="RestartGame"
+        disabled="@IsRestartBlocked">
+        Restart game
+    </button>
+    <VisibleKeyboard 
+    TopRow="@TopRowVisibleKeyboard"
+    MiddleRow="@MiddleRowVisibleKeyboard"
+    BottomRow="@BottomRowVisibleKeyboard"
+    OnKeyClick="OnVisibleKeyboardClick"
+    LetterColorChange="LetterColorChange" />
+</div>

@@ -1,0 +1,118 @@
+const:A constant value that does not change. In code, you use 'const' to fix a variable, like 'const pi = 3.14'.
+throw:Throws an error or exception in a program. For example, 'throw new Error("Invalid input")' stops execution and shows an error message.
+while:A loop that keeps running as long as a condition is true. For example, 'while(x < 10)' keeps repeating while x is less than 10.
+class:A blueprint for objects in object-oriented programming. For example, 'class Car' can have properties like 'color' and methods like 'drive()'.
+break:Stops a loop prematurely. For example, 'break' is used to exit a 'while' or 'for' loop once a certain condition is met.
+bytes:Units of digital information, often used for memory. For example, an image of 1 MB consists of about 1 million bytes.
+input:Data that comes from the user or a file. For example, 'input("What is your name?")' asks for input via the keyboard.
+stdin:Standard input source, usually the keyboard. In programming languages like Python, you can read user input via 'sys.stdin'.
+short:An integer type with limited size. Often used to save memory, for example in sensor data or embedded systems.
+array:A structured list of elements of the same type. For example, 'int[] numbers = {1, 2, 3}' is an array of integers.
+until:A loop that continues until a condition is true (like in Ruby). For example, 'until x == 5' keeps repeating until x equals 5.
+print:Displays text or data on the screen. For example, 'print("Hello world")' shows the text in the console.
+debug:The process of finding and fixing errors in code. You use tools or log messages to figure out why your program isn't working.
+razor:A language for writing dynamic web pages in ASP.NET. You can combine HTML with C# code to create interactive websites.
+basic:A simple programming language, often used for education. For example, 'PRINT "Hello"' displays text on the screen in BASIC.
+query:A request for data, often in databases. For example, 'SELECT * FROM users' retrieves all users from a database.
+mysql:A popular relational database. Often used in websites and apps to store data like users or products.
+style:CSS rules that define how HTML elements look. For example, 'style="color: red;"' makes text appear red.
+cmake:A tool for building software projects. It generates configuration files so your project can be compiled on different systems.
+float:A data type for decimal numbers. For example, 'float pi = 3.14;' stores a number with digits after the decimal point.
+route:Path to a specific webpage or API endpoint. For example, '/home' leads to the homepage of a website.
+color:Property in CSS that defines color. For example, 'color: blue;' makes the text appear blue.
+index:Position of an element in an array or database. For example, 'array[2]' returns the third element (index starts at 0).
+width:Width of an element in CSS or graphical context. For example, 'width: 100px;' makes an element 100 pixels wide.
+https:Secure protocol for web traffic. It ensures that data is transmitted encrypted between browser and server.
+focus:The active element in a user interface. For example, clicking a text field gives that element 'focus'.
+error:Error message or failed operation. For example, 'SyntaxError' means something is wrong with the structure of your code.
+close:Closes a file, window, or connection. For example, 'file.close()' closes a file in Python.
+store:Saves data in memory or a database. For example, 'localStorage.setItem("score", 100)' stores a score in the browser.
+false:Boolean value that represents untrue. For example, 'if(false)' does not execute the code because the condition is false.
+lists:Ordered collections of elements. For example, 'list = [1, 2, 3]' is a list with three numbers.
+empty:A value or container with nothing in it. For example, '[]' is an empty list, and '' is an empty string.
+async:Asynchronous function that doesn’t block execution. For example, 'async function fetchData()' retrieves data without pausing the rest of the code.
+await:Waits for the completion of an async function. For example, 'await fetch(url)' waits until the data is retrieved.
+comma:Separates elements in lists or parameters. For example, 'function(x, y)' uses a comma between parameters.
+point:Decimal point or coordinate in graphical context. For example, '3.14' has a decimal point, and '(x, y)' is a point on a plane.
+colon:Separator in syntax like 'if:' or 'key: value'. For example, 'dict = {"name": "Imraan"}' uses a colon.
+gosub:Calls a subroutine in BASIC. For example, 'GOSUB Calculate' jumps to a separate code block and returns afterward.
+write:Writes data to a file or output. For example, 'write("Hello")' displays or stores text.
+clear:Removes content or resets a value. For example, 'clear()' wipes a list or screen.
+shell:Command-line interface for an operating system. For example, 'bash' or 'cmd' lets you type commands to launch programs or manage files.
+build:Compiles code into an executable program. For example, 'npm run build' prepares your project for production.
+value:The content of a variable. For example, 'x = 5' means the value of x is equal to 5.
+tools:Utilities for development. Think of editors, debuggers, and version control systems like Git.
+ascii:Standard for text encoding. Each letter or symbol has a numeric value, for example 'A' is 65 in ASCII.
+paste:Pastes text or code into an editor. For example, 'Ctrl + V' pastes what you previously copied.
+clone:Copies a repository, often via Git. For example, 'git clone [url]' retrieves a project from a server.
+react:JavaScript framework for UI components. Used to build dynamic web apps, like interactive forms.
+swift:Programming language by Apple. Used for iOS and macOS apps, for example in Xcode.
+emacs:Advanced text editor for programmers. Supports many programming languages and is fully customizable.
+issue:Problem or task in a project. For example, on GitHub you can create an 'issue' to report a bug.
+alloc:Allocates memory to a program. For example, 'malloc' in C reserves space in memory.
+reset:Resets values or status to the initial state. For example, 'form.reset()' clears all input fields in a form.
+unity:Game engine for 2D/3D games. Used to create games for PC, mobile, and consoles.
+pages:Webpages or document sections. For example, in HTML or frameworks like Next.js.
+fetch:Retrieves data, often via an API. For example, 'fetch("https://api.example.com")' gets information from a server.
+stash:Temporary storage of changes in Git. For example, 'git stash' saves your work so you can switch branches.
+purge:Completely removes data or cache. For example, 'npm cache clean --force' deletes old files.
+stack:Data structure or call stack. For example, a stack of functions executed in order.
+repos:Code repositories, often in Git. For example, GitHub hosts thousands of 'repos' with open source projects.
+linux:Open-source operating system. Often used by developers for its flexibility and control over the system.
+apple:Tech company known for macOS and iOS. Produces hardware like iPhones and software like Safari and Xcode.
+local:Refers to local storage or variable. For example, 'localStorage' in the browser or a local variable inside a function.
+scala:Programming language that combines Java with functional programming. Used for scalable and robust applications.
+flash:Outdated technology for animations and video. Previously used for interactive websites, but now largely replaced.
+token:Authentication code or text fragment during parsing. For example, a 'JWT token' is used to identify users.
+crypt:Encryption of data. For example, 'bcrypt' encrypts passwords so they can be stored securely.
+parse:Breaks down text or data into usable parts. For example, 'JSON.parse()' converts text into a JavaScript object.
+merge:Combines data or code. For example, 'git merge' integrates changes from different branches.
+coder:Person who writes code. Also called a programmer; someone who develops software using programming languages.
+table:Data structure in databases or HTML. For example, an HTML `<table>` displays data in rows and columns.
+cache:Temporary storage for quick access. For example, 'browser cache' stores images so pages load faster.
+proxy:Middleman for network traffic. For example, a 'proxy server' forwards requests and can filter traffic.
+crash:Unexpected termination of a program. Often caused by an error or lack of memory.
+modal:Pop-up window that requires interaction. For example, a confirmation screen that must be closed before continuing.
+model:Representation of data or logic. For example, in machine learning a model is trained to make predictions.
+enter:Key or action to confirm input. For example, on a form you press 'Enter' to submit.
+space:Whitespace or space character. For example, ' ' is a space between words.
+caret:Cursor position in text. Often shown as a blinking vertical line in a text field.
+quote:Text between quotation marks. For example, `"Hello"` is a string in many programming languages.
+macro:A series of instructions executed as a single command. For example, in Excel you can create a macro to automate tasks.
+event:An occurrence like a click or keypress. For example, 'onclick' responds to a mouse click in JavaScript.
+forks:Copies of a repository to work on independently. For example, on GitHub you can 'fork' a project to create your own version.
+yield:Returns a value from a generator function. For example, 'yield x' pauses the function and returns x.
+scope:Visibility of variables within code blocks. For example, a variable inside a function is only accessible there.
+alias:Alternative name for a function or module. For example, 'alias ll="ls -l"' creates a shorter version of a command.
+regex:Pattern for text matching (regular expressions). For example, '^a.*z$' matches a string that starts with 'a' and ends with 'z'.
+using:Indicates which namespace or module is being used. For example, 'using System;' in C# imports standard functionality.
+nginx:Web server and reverse proxy. Commonly used to serve websites quickly and securely.
+admin:Administrator with elevated privileges. For example, an admin can manage users and change settings.
+patch:Update or bug fix for software. For example, a 'security patch' resolves a vulnerability in a program.
+modem:Device for internet connection. Connects your computer to the network via cable, DSL, or mobile signal.
+queue:Data structure with FIFO principle. For example, 'queue.push()' adds an item, and 'queue.pop()' removes the oldest one.
+email:Electronic mail, often used for notifications. For example, 'sendEmail(to, subject, body)' sends a message.
+param:Parameter passed to a function. For example, 'function greet(name)' uses 'name' as a parameter.
+mouse:Peripheral device for user interaction. Used to click, drag, and navigate on the screen.
+scrum:Agile development method for teams. Works with short sprints and daily meetings to develop software iteratively.
+click:User action with the mouse. For example, 'onClick' in HTML responds to a click.
+agent:Software component that performs tasks. For example, a 'search agent' automatically looks for information.
+excel:Spreadsheet software for data analysis. Used for calculations, charts, and tables.
+games:Interactive software designed for entertainment, often played on consoles, computers, or mobile devices.
+atari:A pioneer in the video game industry, known for classics like Pong and Asteroids.
+amiga:An advanced computer platform from the 1980s and 1990s, developed by Commodore.
+tandy:A historic computer brand from RadioShack, active in the 1970s and 1980s. Tandy produced systems like the TRS-80.
+mario:A fictional character from Nintendo, known as a plumber with a red cap. Mario is the face of many popular games like Super Mario Bros.
+zelda:An adventure game franchise from Nintendo where players usually take on the role of Link.
+flask:A lightweight web framework for Python, ideal for building small to medium-sized web applications.
+catch:A programming construct used with try to catch and handle errors (exceptions).
+boost:A comprehensive collection of C++ libraries offering functionality like smart pointers, threading, regex, and more.
+opsec:Short for "Operational Security". A strategy in cybersecurity focused on protecting sensitive information by identifying and minimizing risks.
+ipsec:Stands for Internet Protocol Security. A suite of protocols that encrypts network traffic and ensures authenticity.
+login:The process where a user identifies themselves and gains access to a system, usually by entering a username and password.
+embed:Insert code or binary data inside another format. For example, embed an image inside HTML or EMBED a resource in an executable.
+frame:A stack frame or UI container. For example, a frame holds local variables during a function call or a GUI panel in an app.
+trace:A record of execution steps or stack trace for debugging. For example, stack trace shows where an exception originated.
+tuple:An ordered, immutable collection of values. For example, (x, y, z) is a tuple used to return multiple values.
+graph:A data structure of nodes and edges or graph DBs. For example, model relationships with a graph.
+state:The stored status of an application or object. For example, UI state determines what is rendered.

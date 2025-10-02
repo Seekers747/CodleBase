@@ -1,0 +1,29 @@
+﻿<section class="VisibleKeyboard" aria-label="On-screen keyboard">
+    <div class="VisibleKeyboardRow">
+        @foreach (var letter in TopRow)
+        {
+            <button class="KeyboardButton @LetterColorChange(letter)"
+                    @onclick="() => OnKeyClick.InvokeAsync(letter)">
+                @letter
+            </button>
+        }
+    </div>
+    <div class="VisibleKeyboardRow">
+        @foreach (var letter in MiddleRow)
+        {
+            <button class="KeyboardButton @LetterColorChange(letter)"
+                    @onclick="() => OnKeyClick.InvokeAsync(letter)">
+                @letter
+            </button>
+        }
+    </div>
+    <div class="VisibleKeyboardRow">
+        @foreach (var letter in BottomRow)
+        {
+            <button class="KeyboardButton @LetterColorChange(letter)"
+                    @onclick="() => OnKeyClick.InvokeAsync(letter)">
+                @letter
+            </button>
+        }
+    </div>
+</section>
