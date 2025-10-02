@@ -9,5 +9,5 @@ public partial class VisibleKeyboard
     [Parameter] public IEnumerable<string> BottomRow { get; set; } = [];
 
     [Parameter] public EventCallback<string> OnKeyClick { get; set; }
-    [Parameter] public Func<string, string>? LetterColorChange { get; set; }
+    [Parameter] public required Func<string, string> LetterColorChange { get; set; }
 }

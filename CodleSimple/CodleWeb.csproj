@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="combined_wordlist.txt" />
+    <Content Include="ExpandedWordList.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CodleLogic\CodleLogic.csproj" />
   </ItemGroup>
 

@@ -11,7 +11,6 @@
         <h1 class="CodleTitleStyling">Codle</h1>
         <h3 class="CodleSubtitleStyling">A software development related version of wordle</h3>
     </div>
-    <GameGrid Grid="@grid" GridStyles="@gridStyles"/>
     <div class="TopPageTitle PositionMessage">
         <h3 class="CodleMessageNotice">@((MarkupString)codle.Message)</h3>
     </div>
@@ -21,6 +20,7 @@
             @(codle.GameOver ? codle.CodleWordExplain : "The meaning of the word will be shown after the game is over.")
         </h3>
     </div>
+    <GameGrid Grid="@grid" GridStyles="@gridStyles" />
     <button 
         class="RestartGameButton" 
         @onclick="RestartGame"
