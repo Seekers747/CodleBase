@@ -20,6 +20,12 @@ public partial class Home
 
 
     internal GameBoard _board = new();
+    internal KeyboardHandler _keyboardHandler;
+
+    public Home()
+    {
+        _keyboardHandler = new KeyboardHandler(_board);
+    }
 
     protected override void OnInitialized()
     {
@@ -60,7 +66,7 @@ public partial class Home
         switch (evt.Code)
         {
             case "Backspace":
-                HandleBackspace();
+                _keyboardHandler.HandleBackspace();
                 return;
             case "Enter":
                 await HandleEnter();
@@ -72,29 +78,8 @@ public partial class Home
 
         if (evt.Key.Length == 1 && char.IsLetter(evt.Key[0]))
         {
-            HandleLetterInput(evt.Key[0]);
+            _keyboardHandler.HandleLetterInput(evt.Key[0]);
         }
-    }
-
-    private void HandleLetterInput(char key)
-    {
-        if (_board.CurrentGuess.Length >= 5 || _board.CurrentColumn >= 5) return;
-
-        char upperKey = char.ToUpper(key);
-        _board.CurrentGuess += upperKey;
-        _board.Grid[_board.CurrentRow, _board.CurrentColumn] = upperKey;
-        _board.GridStyles[_board.CurrentRow, _board.CurrentColumn] = "typed";
-        _board.CurrentColumn++;
-    }
-
-    private void HandleBackspace()
-    {
-        if (_board.CurrentGuess.Length == 0 || _board.CurrentColumn == 0) return;
-
-        _board.CurrentGuess = _board.CurrentGuess[..^1];
-        _board.CurrentColumn--;
-        _board.GridStyles[_board.CurrentRow, _board.CurrentColumn] = "";
-        _board.Grid[_board.CurrentRow, _board.CurrentColumn] = ' ';
     }
 
     private async Task HandleEnter()
