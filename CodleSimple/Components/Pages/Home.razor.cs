@@ -11,7 +11,7 @@ public partial class Home
     private readonly string[,] gridStyles = new string[7, 6];
     private int CurrentColumn;
     private int CurrentRow;
-    private readonly CodleLogic.Codle codle = new();
+    public readonly CodleLogic.Codle codle = new();
     public List<char> CheckedLetters { get; private set; } = [];
     private ElementReference CodleResetFix;
     private readonly string[] TopRowVisibleKeyboard = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];

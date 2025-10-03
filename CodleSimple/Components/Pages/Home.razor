@@ -7,19 +7,10 @@
 <PageTitle>Home</PageTitle>
 
 <div class="Codle" @ref="CodleResetFix" @onkeydown="OnPhysicalKeyboardClick" tabindex="0">
-    <div class="TopPageTitle">
-        <h1 class="CodleTitleStyling">Codle</h1>
-        <h3 class="CodleSubtitleStyling">A software development related version of wordle</h3>
-    </div>
-    <div class="TopPageTitle PositionMessage">
-        <h3 class="CodleMessageNotice">@((MarkupString)codle.Message)</h3>
-    </div>
-    <div class="TopPageTitle PositionExplanation">
-        <h1 class="CodleTitleStyling">The meaning</h1>
-        <h3 class="CodleSubtitleStyling">
-            @(codle.GameOver ? codle.CodleWordExplain : "The meaning of the word will be shown after the game is over.")
-        </h3>
-    </div>
+    <TextBlock 
+      Message="@codle.Message"
+      GameOver="@codle.GameOver"
+      CodleWordExplain="@codle.CodleWordExplain" />
     <GameGrid Grid="@grid" GridStyles="@gridStyles" />
     <button 
         class="RestartGameButton" 
@@ -28,9 +19,9 @@
         Restart game
     </button>
     <VisibleKeyboard 
-    TopRow="@TopRowVisibleKeyboard"
-    MiddleRow="@MiddleRowVisibleKeyboard"
-    BottomRow="@BottomRowVisibleKeyboard"
-    OnKeyClick="OnVisibleKeyboardClick"
-    LetterColorChange="LetterColorChange" />
+      TopRow="@TopRowVisibleKeyboard"
+      MiddleRow="@MiddleRowVisibleKeyboard"
+      BottomRow="@BottomRowVisibleKeyboard"
+      OnKeyClick="OnVisibleKeyboardClick"
+      LetterColorChange="LetterColorChange" />
 </div>
