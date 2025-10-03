@@ -12,12 +12,9 @@
       GameOver="@codle.GameOver"
       CodleWordExplain="@codle.CodleWordExplain" />
     <GameGrid Grid="@grid" GridStyles="@gridStyles" />
-    <button 
-        class="RestartGameButton" 
-        @onclick="RestartGame"
-        disabled="@IsRestartBlocked">
-        Restart game
-    </button>
+    <RestartButton 
+      OnClick="RestartGame"
+      Disabled="@IsRestartBlocked"/>
     <VisibleKeyboard 
       TopRow="@TopRowVisibleKeyboard"
       MiddleRow="@MiddleRowVisibleKeyboard"

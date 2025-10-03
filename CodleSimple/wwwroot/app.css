@@ -19,18 +19,6 @@ body {
     outline: none;
 }
 
-.RestartGameButton {
-    width: 200px;
-    height: 60px;
-    font-weight: bolder;
-    background-color: lightblue;
-    border: 3px solid black;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
 .CorrectLetter {
     background-color: #27ae60;
     color: white;
