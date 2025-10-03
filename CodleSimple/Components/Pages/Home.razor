@@ -11,7 +11,7 @@
       Message="@codle.Message"
       GameOver="@codle.GameOver"
       CodleWordExplain="@codle.CodleWordExplain" />
-    <GameGrid Grid="@grid" GridStyles="@gridStyles" />
+    <GameGrid Grid="@_board.Grid" GridStyles="@_board.GridStyles" />
     <RestartButton 
       OnClick="RestartGame"
       Disabled="@IsRestartBlocked"/>

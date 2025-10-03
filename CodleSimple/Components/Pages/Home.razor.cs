@@ -1,16 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System.Collections.Immutable;
+using CodleWeb.Components.Game;
 
 namespace CodleWeb.Components.Pages;
 
 public partial class Home
 {
-    string CurrentGuess = "";
-    private readonly char[,] grid = new char[7, 6];
-    private readonly string[,] gridStyles = new string[7, 6];
-    private int CurrentColumn;
-    private int CurrentRow;
     public readonly CodleLogic.Codle codle = new();
     public List<char> CheckedLetters { get; private set; } = [];
     private ElementReference CodleResetFix;
@@ -22,10 +18,13 @@ public partial class Home
     public bool DidPlayerWin = false;
     private bool FinishedGameFair;
 
+
+    internal GameBoard _board = new();
+
     protected override void OnInitialized()
     {
         codle.StartGame();
-        InitializeGrid();
+        _board.Initialize();
     }
 
     private bool _initializedRender;
@@ -38,18 +37,6 @@ public partial class Home
             _initializedRender = true;
 
             StateHasChanged();
-        }
-    }
-
-    private void InitializeGrid()
-    {
-        for (int y = 0; y < 6; y++)
-        {
-            for (int x = 0; x < 5; x++)
-            {
-                grid[y, x] = ' ';
-                gridStyles[y, x] = string.Empty;
-            }
         }
     }
 
@@ -67,7 +54,7 @@ public partial class Home
 
     private async Task HandleKeyPress(KeyboardEventArgs evt)
     {
-        CurrentGuess = CurrentGuess.ToLower();
+        _board.CurrentGuess = _board.CurrentGuess.ToLower();
         Console.WriteLine($"Key: {evt.Key}, Code: {evt.Code}");
 
         switch (evt.Code)
@@ -91,34 +78,34 @@ public partial class Home
 
     private void HandleLetterInput(char key)
     {
-        if (CurrentGuess.Length >= 5 || CurrentColumn >= 5) return;
+        if (_board.CurrentGuess.Length >= 5 || _board.CurrentColumn >= 5) return;
 
         char upperKey = char.ToUpper(key);
-        CurrentGuess += upperKey;
-        grid[CurrentRow, CurrentColumn] = upperKey;
-        gridStyles[CurrentRow, CurrentColumn] = "typed";
-        CurrentColumn++;
+        _board.CurrentGuess += upperKey;
+        _board.Grid[_board.CurrentRow, _board.CurrentColumn] = upperKey;
+        _board.GridStyles[_board.CurrentRow, _board.CurrentColumn] = "typed";
+        _board.CurrentColumn++;
     }
 
     private void HandleBackspace()
     {
-        if (CurrentGuess.Length == 0 || CurrentColumn == 0) return;
+        if (_board.CurrentGuess.Length == 0 || _board.CurrentColumn == 0) return;
 
-        CurrentGuess = CurrentGuess[..^1];
-        CurrentColumn--;
-        gridStyles[CurrentRow, CurrentColumn] = "";
-        grid[CurrentRow, CurrentColumn] = ' ';
+        _board.CurrentGuess = _board.CurrentGuess[..^1];
+        _board.CurrentColumn--;
+        _board.GridStyles[_board.CurrentRow, _board.CurrentColumn] = "";
+        _board.Grid[_board.CurrentRow, _board.CurrentColumn] = ' ';
     }
 
     private async Task HandleEnter()
     {
-        if (CurrentGuess.Length != 5 || CurrentRow > 6 || !CurrentGuess.All(char.IsLetter)) return;
-        if (!CheckIfGuessIsValidWord(CurrentGuess)) return;
+        if (_board.CurrentGuess.Length != 5 || _board.CurrentRow > 6 || !_board.CurrentGuess.All(char.IsLetter)) return;
+        if (!CheckIfGuessIsValidWord(_board.CurrentGuess)) return;
 
-        codle.MakeGuess(CurrentGuess);
-        CheckCorrectLetters(CurrentGuess);
+        codle.MakeGuess(_board.CurrentGuess);
+        CheckCorrectLetters(_board.CurrentGuess);
 
-        if (string.Equals(CurrentGuess, codle.CodleWord, StringComparison.OrdinalIgnoreCase))
+        if (string.Equals(_board.CurrentGuess, codle.CodleWord, StringComparison.OrdinalIgnoreCase))
         {
             await GameSessionService.ResetRestartCountAsync();
             UnfinishedRestartCount = await GameSessionService.GetUnfinishedRestartCountAsync();
@@ -126,11 +113,11 @@ public partial class Home
             DidPlayerWin = true;
         }
 
-        CurrentGuess = string.Empty;
-        CurrentRow++;
-        CurrentColumn = 0;
+        _board.CurrentGuess = string.Empty;
+        _board.CurrentRow++;
+        _board.CurrentColumn = 0;
 
-        if (CurrentRow >= 6)
+        if (_board.CurrentRow >= 6)
         {
             await GameSessionService.ResetRestartCountAsync();
             UnfinishedRestartCount = await GameSessionService.GetUnfinishedRestartCountAsync();
@@ -153,7 +140,7 @@ public partial class Home
             char letter = guess[i];
             if (letter == target[i])
             {
-                gridStyles[CurrentRow, i] = "correct";
+                _board.GridStyles[_board.CurrentRow, i] = "correct";
                 UpdateKeyboardStyle(letter, "CorrectLetter");
                 matchedCounts[letter] = matchedCounts.GetValueOrDefault(letter) + 1;
             }
@@ -161,7 +148,7 @@ public partial class Home
 
         for (int i = 0; i < guess.Length; i++)
         {
-            if (gridStyles[CurrentRow, i] == "correct") continue;
+            if (_board.GridStyles[_board.CurrentRow, i] == "correct") continue;
 
             char letter = guess[i];
             bool isInTarget = target.Contains(letter);
@@ -170,13 +157,13 @@ public partial class Home
 
             if (isInTarget && matchedSoFar < allowedMatches)
             {
-                gridStyles[CurrentRow, i] = "present";
+                _board.GridStyles[_board.CurrentRow, i] = "present";
                 UpdateKeyboardStyle(letter, "PresentLetter");
                 matchedCounts[letter] = matchedSoFar + 1;
             }
             else
             {
-                gridStyles[CurrentRow, i] = "absent";
+                _board.GridStyles[_board.CurrentRow, i] = "absent";
                 UpdateKeyboardStyle(letter, "AbsentLetter");
             }
         }
@@ -208,17 +195,17 @@ public partial class Home
         computerCancelSource = null;
 
         codle.Reset(DidPlayerWin);
-        CurrentGuess = string.Empty;
-        CurrentRow = 0;
-        CurrentColumn = 0;
+        _board.CurrentGuess = string.Empty;
+        _board.CurrentRow = 0;
+        _board.CurrentColumn = 0;
         VisibleKeyboardStyle.Clear();
 
         for (int y = 0; y < 6; y++)
         {
             for (int x = 0; x < 5; x++)
             {
-                grid[y, x] = ' ';
-                gridStyles[y, x] = string.Empty;
+                _board.Grid[y, x] = ' ';
+                _board.GridStyles[y, x] = string.Empty;
             }
         }
 
@@ -244,11 +231,9 @@ public partial class Home
 
             Console.WriteLine($"Unfinished restart count: {UnfinishedRestartCount}");
 
-            // Example: take action if suspicious
             if (UnfinishedRestartCount >= 3)
             {
                 Console.WriteLine("Warning: player may be trying to cheese!");
-                // TODO: you could log to server or show a warning
             }
         }
         FinishedGameFair = false;
