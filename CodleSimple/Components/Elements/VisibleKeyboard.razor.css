@@ -3,13 +3,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 7px;
+    gap: 0.438rem;
 }
 
 .VisibleKeyboardRow {
     display: flex;
     flex-direction: row;
-    gap: 7px;
+    gap: 0.438rem;
 }
 
 input:focus {
@@ -34,12 +34,12 @@ input:focus {
 }
 
 .KeyboardButton {
-    width: 50px;
-    height: 70px;
+    width: 3.125rem;
+    height: 4.375rem;
     text-align: center;
     font-size: x-large;
     background-color: floralwhite;
-    border: solid 3px black;
-    border-radius: 7px;
+    border: solid 0.188rem black;
+    border-radius: 0.438rem;
     cursor: pointer;
 }

@@ -2,37 +2,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
   outline: none;
 }
 
 .AttemptRow {
   display: flex;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .LetterCell {
-  width: 60px;
-  height: 60px;
-  border: 4px solid #ccc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-weight: bold;
-  font-size: 24px;
-  transition: 
-    width 0.2s ease, 
-    height 0.2s ease, 
-    border 0.2s ease,
-    background-color 0.2s ease,
-    color 0.2s ease;
+    width: 3.75rem;
+    height: 3.75rem;
+    border: 0.25rem solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    transition: width 0.2s ease, height 0.2s ease, border 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .LetterCell.cell-typed {
-  width: 72px;
-  height: 72px;
-  border: solid darkgray 4.5px;
+    width: 4.5rem;
+    height: 4.5rem;
+    border: solid darkgray 0.281rem;
 }
 
 .LetterCell.cell-typed:active {

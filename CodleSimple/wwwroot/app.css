@@ -2,20 +2,31 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden; /* prevent unwanted scrollbars */
 }
 
 body {
     display: flex;
     justify-content: center;
+    align-items: center;
+    font-size: clamp(14px, 2vw, 18px); /* scales text across devices */
 }
 
 .Codle {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    width: 100vw;
-    height: 100vh;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 600px; /* keeps layout from stretching too wide */
+    min-height: 100dvh; /* ? correct scaling on mobile browsers */
+    margin: auto;
     outline: none;
 }
 
