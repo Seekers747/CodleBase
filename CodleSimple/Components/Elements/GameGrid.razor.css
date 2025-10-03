@@ -6,15 +6,15 @@
   outline: none;
 }
 
-.AttemptRow {
+.GuessBox > div {
   display: flex;
   gap: 0.75rem;
 }
 
-.LetterCell {
+.GuessBox > div > span {
     width: 3.75rem;
     height: 3.75rem;
-    border: 0.25rem solid #ccc;
+    border: 0.25rem solid var(--cell-empty);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -24,36 +24,33 @@
     transition: width 0.2s ease, height 0.2s ease, border 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
-.LetterCell.cell-typed {
+.GuessBox > div > span.cell-typed {
     width: 4.5rem;
     height: 4.5rem;
-    border: solid darkgray 0.281rem;
+    border: solid var(--cell-typed-border) 0.281rem;
+    background-color: var(--cell-typed);
 }
 
-.LetterCell.cell-typed:active {
-  transform: scale(1);
+.GuessBox > div > span.cell-typed:active {
+    transform: scale(1);
 }
 
 .cell-empty {
   background: transparent;
-  border-color: #ccc;
-}
-
-.cell-typed {
-  background-color: lightgrey;
+  border-color: var(--cell-empty);
 }
 
 .cell-correct {
-  background-color: limegreen;
-  color: whitesmoke;
+    background-color: var(--cell-correct);
+    color: var(--cell-letter-color);
 }
 
 .cell-present {
-  background-color: goldenrod;
-  color: whitesmoke;
+    background-color: var(--cell-present);
+    color: var(--cell-letter-color);
 }
 
 .cell-absent {
-  background-color: gray;
-  color: whitesmoke;
+    background-color: var(--cell-absent);
+    color: var(--cell-letter-color);
 }

@@ -1,9 +1,9 @@
-﻿.RestartGameButton {
+﻿button {
     width: 12.5rem;
     height: 3.75rem;
     font-weight: bolder;
-    background-color: lightblue;
-    border: 0.188rem solid black;
+    background-color: var(--restart-background);
+    border: 0.188rem solid var(--button-border);
     border-radius: 0.5rem;
     cursor: pointer;
     margin-top: 1.25rem;

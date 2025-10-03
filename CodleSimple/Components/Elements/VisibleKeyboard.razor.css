@@ -6,7 +6,7 @@
     gap: 0.438rem;
 }
 
-.VisibleKeyboardRow {
+div {
     display: flex;
     flex-direction: row;
     gap: 0.438rem;
@@ -18,28 +18,28 @@ input:focus {
     caret-color: transparent;
 }
 
-.correct, .KeyboardButton.CorrectLetter {
-    background-color: limegreen;
-    color: whitesmoke;
+.correct, button.CorrectLetter {
+    background-color: var(--cell-correct);
+    color: var(--board-letter-color);
 }
 
-.present, .KeyboardButton.PresentLetter {
-    background-color: goldenrod;
-    color: whitesmoke;
+.present, button.PresentLetter {
+    background-color: var(--cell-present);
+    color: var(--board-letter-color);
 }
 
-.absent, .KeyboardButton.AbsentLetter {
-    background-color: gray;
-    color: whitesmoke;
+.absent, button.AbsentLetter {
+    background-color: var(--cell-absent);
+    color: var(--board-letter-color);
 }
 
-.KeyboardButton {
+button {
     width: 3.125rem;
     height: 4.375rem;
     text-align: center;
     font-size: x-large;
-    background-color: floralwhite;
-    border: solid 0.188rem black;
+    background-color: var(--keyboard-background);
+    border: solid 0.188rem var(--button-border);
     border-radius: 0.438rem;
     cursor: pointer;
 }

@@ -1,3 +1,23 @@
+:root {
+    --correct-letter-background: #27ae60;
+    --present-letter-background: #f1c40f;
+    --absent-letter-background: #95a5a6;
+    --board-letter-color: white;
+    --cell-letter-color: whitesmoke;
+    --cell-correct: limegreen;
+    --cell-present: goldenrod;
+    --cell-absent: gray;
+    --cell-empty: #ccc;
+    --cell-typed: lightgrey;
+    --cell-typed-border: darkgray;
+    --keyboard-background: floralwhite;
+    --button-border: black;
+    --restart-background: lightblue;
+    --textblock-title: darkblue;
+    --textblock-subtitle: #7f8c8d;
+    --textblock-background: #f5f5f5;
+}
+
 * {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin: 0;
@@ -8,14 +28,13 @@
 html, body {
     height: 100%;
     width: 100%;
-    overflow: hidden; /* prevent unwanted scrollbars */
 }
 
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: clamp(14px, 2vw, 18px); /* scales text across devices */
+    font-size: clamp(0.875rem, 2vw, 1.125rem);
 }
 
 .Codle {
@@ -24,23 +43,23 @@ body {
     align-items: center;
     gap: 0.5rem;
     width: 100%;
-    max-width: 600px; /* keeps layout from stretching too wide */
-    min-height: 100dvh; /* ? correct scaling on mobile browsers */
+    max-width: 37.5rem;
+    min-height: 100dvh;
     margin: auto;
     outline: none;
 }
 
 .CorrectLetter {
-    background-color: #27ae60;
-    color: white;
+    background-color: var(--correct-letter-background);
+    color: var(--board-letter-color);
 }
 
 .PresentLetter {
-    background-color: #f1c40f;
-    color: white;
+    background-color: var(--present-letter-background);
+    color: var(--board-letter-color);
 }
 
 .AbsentLetter {
-    background-color: #95a5a6;
-    color: white;
+    background-color: var(--absent-letter-background);
+    color: var(--board-letter-color);
 }
