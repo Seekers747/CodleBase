@@ -14,7 +14,6 @@ public partial class Home
     private readonly string[] MiddleRowVisibleKeyboard = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
     private readonly string[] BottomRowVisibleKeyboard = ["Z", "X", "C", "V", "B", "N", "M"];
     private readonly Dictionary<string, string> VisibleKeyboardStyle = [];
-    private CancellationTokenSource? computerCancelSource;
     public bool DidPlayerWin = false;
     private bool FinishedGameFair;
 
@@ -176,25 +175,13 @@ public partial class Home
             return;
         }
 
-        computerCancelSource?.Cancel();
-        computerCancelSource = null;
-
-        codle.Reset(DidPlayerWin);
-        _board.CurrentGuess = string.Empty;
-        _board.CurrentRow = 0;
-        _board.CurrentColumn = 0;
-        VisibleKeyboardStyle.Clear();
-
-        for (int y = 0; y < 6; y++)
-        {
-            for (int x = 0; x < 5; x++)
-            {
-                _board.Grid[y, x] = ' ';
-                _board.GridStyles[y, x] = string.Empty;
-            }
-        }
-
-        await CodleResetFix.FocusAsync();
+        await RestartGameHelper.RestartAsync(
+            codle,
+            _board,
+            VisibleKeyboardStyle,
+            DidPlayerWin,
+            async () => await CodleResetFix.FocusAsync()
+        );
     }
 
     private string LetterColorChange(string letter) =>
