@@ -22,10 +22,14 @@ public partial class Home
 
     internal GameBoard _board = new();
     internal KeyboardHandler _keyboardHandler;
+    internal UpdateLetters _updateLetters;
+    internal Validate _validate;
 
     public Home()
     {
         _keyboardHandler = new KeyboardHandler(_board);
+        _updateLetters = new UpdateLetters(_board, VisibleKeyboardStyle, codle);
+        _validate = new Validate();
     }
 
     protected override void OnInitialized()
@@ -86,10 +90,10 @@ public partial class Home
     private async Task HandleEnter()
     {
         if (_board.CurrentGuess.Length != 5 || _board.CurrentRow > 6 || !_board.CurrentGuess.All(char.IsLetter)) return;
-        if (!CheckIfGuessIsValidWord(_board.CurrentGuess)) return;
+        if (!_validate.CheckIfGuessIsValidWord(_board.CurrentGuess)) return;
 
         codle.MakeGuess(_board.CurrentGuess);
-        CheckCorrectLetters(_board.CurrentGuess);
+        _updateLetters.CheckCorrectLetters(_board.CurrentGuess);
 
         if (string.Equals(_board.CurrentGuess, codle.CodleWord, StringComparison.OrdinalIgnoreCase))
         {
@@ -115,62 +119,6 @@ public partial class Home
         }
     }
 
-    private void CheckCorrectLetters(string guess)
-    {
-        string target = codle.CodleWord;
-        var targetCounts = new Dictionary<char, int>();
-        var matchedCounts = new Dictionary<char, int>();
-
-        foreach (char letter in target)
-            targetCounts[letter] = targetCounts.GetValueOrDefault(letter) + 1;
-
-        for (int i = 0; i < guess.Length; i++)
-        {
-            char letter = guess[i];
-            if (letter == target[i])
-            {
-                _board.GridStyles[_board.CurrentRow, i] = "correct";
-                UpdateKeyboardStyle(letter, "CorrectLetter");
-                matchedCounts[letter] = matchedCounts.GetValueOrDefault(letter) + 1;
-            }
-        }
-
-        for (int i = 0; i < guess.Length; i++)
-        {
-            if (_board.GridStyles[_board.CurrentRow, i] == "correct") continue;
-
-            char letter = guess[i];
-            bool isInTarget = target.Contains(letter);
-            int matchedSoFar = matchedCounts.GetValueOrDefault(letter);
-            int allowedMatches = targetCounts.GetValueOrDefault(letter);
-
-            if (isInTarget && matchedSoFar < allowedMatches)
-            {
-                _board.GridStyles[_board.CurrentRow, i] = "present";
-                UpdateKeyboardStyle(letter, "PresentLetter");
-                matchedCounts[letter] = matchedSoFar + 1;
-            }
-            else
-            {
-                _board.GridStyles[_board.CurrentRow, i] = "absent";
-                UpdateKeyboardStyle(letter, "AbsentLetter");
-            }
-        }
-    }
-
-    private void UpdateKeyboardStyle(char letter, string style)
-    {
-        string key = letter.ToString().ToUpper();
-
-        if (!VisibleKeyboardStyle.TryGetValue(key, out string? value) ||
-            (style == "PresentLetter" && value == "AbsentLetter") ||
-            style == "CorrectLetter")
-        {
-            value = style;
-            VisibleKeyboardStyle[key] = value;
-        }
-    }
-
     private async Task RestartGame()
     {
         await RestartGameHelper.RestartAsync(
@@ -187,11 +135,4 @@ public partial class Home
             (val) => { IsRestartBlocked = val; StateHasChanged(); return Task.CompletedTask; }
         );
     }
-
-    private string LetterColorChange(string letter) =>
-        (VisibleKeyboardStyle.TryGetValue(letter, out var style)) ? style : string.Empty;
-
-    readonly static string[] lines = [.. File.ReadAllLines("combined_wordlist.txt").OrderBy(line => line)];
-
-    private static bool CheckIfGuessIsValidWord(string ValidGuess) => Array.BinarySearch(lines, ValidGuess) > 0;
 }
