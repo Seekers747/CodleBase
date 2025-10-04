@@ -16,6 +16,8 @@ public partial class Home
     private readonly Dictionary<string, string> VisibleKeyboardStyle = [];
     public bool DidPlayerWin = false;
     private bool FinishedGameFair;
+    public int UnfinishedRestartCount { get; set; }
+    public bool IsRestartBlocked { get; set; } = false;
 
 
     internal GameBoard _board = new();
@@ -95,6 +97,8 @@ public partial class Home
             UnfinishedRestartCount = await GameSessionService.GetUnfinishedRestartCountAsync();
             FinishedGameFair = true;
             DidPlayerWin = true;
+            IsRestartBlocked = UnfinishedRestartCount >= 3;
+            StateHasChanged();
         }
 
         _board.CurrentGuess = string.Empty;
@@ -106,6 +110,7 @@ public partial class Home
             await GameSessionService.ResetRestartCountAsync();
             UnfinishedRestartCount = await GameSessionService.GetUnfinishedRestartCountAsync();
             FinishedGameFair = true;
+            IsRestartBlocked = UnfinishedRestartCount >= 3;
             StateHasChanged();
         }
     }
@@ -168,19 +173,18 @@ public partial class Home
 
     private async Task RestartGame()
     {
-        await CheckGameFair();
-        if (IsRestartBlocked)
-        {
-            await CodleResetFix.FocusAsync();
-            return;
-        }
-
         await RestartGameHelper.RestartAsync(
             codle,
             _board,
             VisibleKeyboardStyle,
             DidPlayerWin,
-            async () => await CodleResetFix.FocusAsync()
+            async () => await CodleResetFix.FocusAsync(),
+            FinishedGameFair,
+            UnfinishedRestartCount,
+            async () => await GameSessionService.IncrementRestartCountAsync(),
+            async () => await GameSessionService.GetUnfinishedRestartCountAsync(),
+            () => { StateHasChanged(); return Task.CompletedTask; },
+            (val) => { IsRestartBlocked = val; StateHasChanged(); return Task.CompletedTask; }
         );
     }
 
@@ -190,27 +194,4 @@ public partial class Home
     readonly static string[] lines = [.. File.ReadAllLines("combined_wordlist.txt").OrderBy(line => line)];
 
     private static bool CheckIfGuessIsValidWord(string ValidGuess) => Array.BinarySearch(lines, ValidGuess) > 0;
-
-    public int UnfinishedRestartCount { get; set; }
-    private bool IsRestartBlocked => UnfinishedRestartCount >= 3;
-
-    public async Task CheckGameFair()
-    {
-        if (!FinishedGameFair)
-        {
-            await GameSessionService.IncrementRestartCountAsync();
-            UnfinishedRestartCount = await GameSessionService.GetUnfinishedRestartCountAsync();
-
-            Console.WriteLine($"Unfinished restart count: {UnfinishedRestartCount}");
-
-            if (UnfinishedRestartCount >= 3)
-            {
-                Console.WriteLine("Warning: player may be trying to cheese!");
-            }
-        }
-        FinishedGameFair = false;
-        Console.WriteLine($"the reset count: {UnfinishedRestartCount}");
-        Console.WriteLine($"restart should be blocked {IsRestartBlocked}");
-        StateHasChanged();
-    }
 }
