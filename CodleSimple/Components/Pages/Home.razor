@@ -14,8 +14,18 @@
       CodleWordExplain="@codle.CodleWordExplain" />
     <GameGrid Grid="@_board.Grid" GridStyles="@_board.GridStyles" />
     <RestartButton 
-      OnClick="RestartGame"
-      Disabled="@IsRestartBlocked"/>
+      Codle="@codle"
+      Board="@_board"
+      KeyboardStyle="@VisibleKeyboardStyle"
+      DidPlayerWin="@DidPlayerWin"
+      FinishedGameFair="@FinishedGameFair"
+      UnfinishedRestartCount="@UnfinishedRestartCount"
+      FocusAction="async () => await CodleResetFix.FocusAsync()"
+      IncrementRestart="async () => await GameSessionService.IncrementRestartCountAsync()"
+      GetUnfinishedRestart="async () => await GameSessionService.GetUnfinishedRestartCountAsync()"
+      StateHasChangedCallback="() => { StateHasChanged(); return Task.CompletedTask; }"
+      SetIsRestartBlocked="(val) => { IsRestartBlocked = val; StateHasChanged(); return Task.CompletedTask; }"
+      Disabled="@IsRestartBlocked" />
     <VisibleKeyboard 
       TopRow="@TopRowVisibleKeyboard"
       MiddleRow="@MiddleRowVisibleKeyboard"

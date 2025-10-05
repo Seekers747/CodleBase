@@ -118,21 +118,4 @@ public partial class Home
             StateHasChanged();
         }
     }
-
-    private async Task RestartGame()
-    {
-        await RestartGameHelper.RestartAsync(
-            codle,
-            _board,
-            VisibleKeyboardStyle,
-            DidPlayerWin,
-            async () => await CodleResetFix.FocusAsync(),
-            FinishedGameFair,
-            UnfinishedRestartCount,
-            async () => await GameSessionService.IncrementRestartCountAsync(),
-            async () => await GameSessionService.GetUnfinishedRestartCountAsync(),
-            () => { StateHasChanged(); return Task.CompletedTask; },
-            (val) => { IsRestartBlocked = val; StateHasChanged(); return Task.CompletedTask; }
-        );
-    }
 }
