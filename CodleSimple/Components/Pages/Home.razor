@@ -7,7 +7,7 @@
 
 <PageTitle>Home</PageTitle>
 
-<div class="Codle" @ref="CodleResetFix" @onkeydown="HandleKeyPress" tabindex="0">
+<div class="Codle" @ref="CodleResetFix" @onkeydown="_keyboardHandler.HandleKeyPress" tabindex="0">
     <TextBlock 
       Message="@codle.Message"
       GameOver="@codle.GameOver"
@@ -28,6 +28,6 @@
       Disabled="@IsRestartBlocked" />
     <VisibleKeyboard
       Rows="@VisibleKeyboardRows"
-      OnKeyClick="HandleKeyPress"
+      OnKeyClick="_keyboardHandler.HandleKeyPress"
       KeyboardStyle="@VisibleKeyboardStyle" />
 </div>

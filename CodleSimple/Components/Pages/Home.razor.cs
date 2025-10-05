@@ -29,7 +29,7 @@ public partial class Home
 
     public Home()
     {
-        _keyboardHandler = new KeyboardHandler(_board);
+        _keyboardHandler = new KeyboardHandler(_board, async () => await CodleResetFix.FocusAsync(), async () => await HandleEnter());
         _updateLetters = new UpdateLetters(_board, VisibleKeyboardStyle, codle);
         _validate = new Validate();
     }
@@ -53,32 +53,7 @@ public partial class Home
         }
     }
 
-    private async Task HandleKeyPress(KeyboardEventArgs evt)
-    {
-        await CodleResetFix.FocusAsync();
-        _board.CurrentGuess = _board.CurrentGuess.ToLower();
-        Console.WriteLine($"Key: {evt.Key}, Code: {evt.Code}");
-
-        switch (evt.Code)
-        {
-            case "Backspace":
-                _keyboardHandler.HandleBackspace();
-                return;
-            case "Enter":
-                await HandleEnter();
-                return;
-            case "Tab":
-                await CodleResetFix.FocusAsync();
-                return;
-        }
-
-        if (evt.Key.Length == 1 && char.IsLetter(evt.Key[0]))
-        {
-            _keyboardHandler.HandleLetterInput(evt.Key[0]);
-        }
-    }
-
-    private async Task HandleEnter()
+    public async Task HandleEnter()
     {
         if (_board.CurrentGuess.Length != 5 || _board.CurrentRow > 6 || !_board.CurrentGuess.All(char.IsLetter)) return;
         if (!_validate.CheckIfGuessIsValidWord(_board.CurrentGuess)) return;
