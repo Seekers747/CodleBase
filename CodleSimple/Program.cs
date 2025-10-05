@@ -1,5 +1,5 @@
 using CodleWeb.Components;
-using CodleWeb.Services;
+using CodleWeb.Components.Services;
 
 namespace CodleWeb
 {

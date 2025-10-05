@@ -1,6 +1,4 @@
-﻿using CodleWeb.Services;
-
-namespace CodleWeb.Components.Game;
+﻿namespace CodleWeb.Components.Game;
 
 public class RestartGameHelper
 {

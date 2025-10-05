@@ -1,4 +1,4 @@
-﻿namespace CodleWeb.Services;
+﻿namespace CodleWeb.Components.Services;
 
 public interface IGameSessionService
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
-namespace CodleWeb.Services;
+namespace CodleWeb.Components.Services;
 
 public class GameSessionService(ProtectedLocalStorage localStorage) : IGameSessionService
 {

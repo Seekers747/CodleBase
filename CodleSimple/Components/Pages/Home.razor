@@ -1,6 +1,6 @@
 ﻿@page "/"
 @using CodleWeb.Components.Elements
-@using CodleWeb.Services
+@using CodleWeb.Components.Services
 @using CodleWeb.Components.Game
 @rendermode InteractiveServer
 @inject IGameSessionService GameSessionService
@@ -26,10 +26,8 @@
       StateHasChangedCallback="() => { StateHasChanged(); return Task.CompletedTask; }"
       SetIsRestartBlocked="(val) => { IsRestartBlocked = val; StateHasChanged(); return Task.CompletedTask; }"
       Disabled="@IsRestartBlocked" />
-    <VisibleKeyboard 
-      TopRow="@TopRowVisibleKeyboard"
-      MiddleRow="@MiddleRowVisibleKeyboard"
-      BottomRow="@BottomRowVisibleKeyboard"
+    <VisibleKeyboard
+      Rows="@VisibleKeyboardRows"
       OnKeyClick="OnVisibleKeyboardClick"
       KeyboardStyle="@VisibleKeyboardStyle" />
 </div>

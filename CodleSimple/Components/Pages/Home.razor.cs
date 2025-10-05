@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using System.Collections.Immutable;
 using CodleWeb.Components.Game;
 
 namespace CodleWeb.Components.Pages;
@@ -10,9 +9,12 @@ public partial class Home
     public readonly CodleLogic.Codle codle = new();
     public List<char> CheckedLetters { get; private set; } = [];
     private ElementReference CodleResetFix;
-    private readonly string[] TopRowVisibleKeyboard = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
-    private readonly string[] MiddleRowVisibleKeyboard = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
-    private readonly string[] BottomRowVisibleKeyboard = ["Z", "X", "C", "V", "B", "N", "M"];
+    private readonly List<List<string>> VisibleKeyboardRows =
+    [
+        ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+        ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
+        ["Z", "X", "C", "V", "B", "N", "M"]
+    ];
     private readonly Dictionary<string, string> VisibleKeyboardStyle = [];
     public bool DidPlayerWin = false;
     private bool FinishedGameFair;
