@@ -6,8 +6,6 @@ namespace CodleWeb.Components.Elements;
 public partial class RestartButton
 {
     [Parameter] public bool Disabled { get; set; } = false;
-
-    // Pass all data the helper needs as parameters
     [Parameter] public CodleLogic.Codle Codle { get; set; } = default!;
     [Parameter] public GameBoard Board { get; set; } = default!;
     [Parameter] public Dictionary<string, string> KeyboardStyle { get; set; } = default!;
