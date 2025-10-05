@@ -5,7 +5,7 @@
             @foreach (var letter in row)
             {
                 <button class="@LetterColorChange(letter)"
-                        @onclick="() => OnKeyClick.InvokeAsync(letter)">
+                        @onclick="() => OnKeyClick.InvokeAsync(new KeyboardEventArgs { Key = letter, Code = letter })">
                     @letter
                 </button>
             }

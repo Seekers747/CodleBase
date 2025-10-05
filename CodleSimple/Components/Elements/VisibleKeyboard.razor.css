@@ -42,4 +42,5 @@ button {
     border: solid 0.188rem var(--button-border);
     border-radius: 0.438rem;
     cursor: pointer;
+    overflow: hidden;
 }

@@ -12,8 +12,8 @@ public partial class Home
     private readonly List<List<string>> VisibleKeyboardRows =
     [
         ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
-        ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
-        ["Z", "X", "C", "V", "B", "N", "M"]
+        ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Backspace"],
+        ["Z", "X", "C", "V", "B", "N", "M", "Enter"]
     ];
     private readonly Dictionary<string, string> VisibleKeyboardStyle = [];
     public bool DidPlayerWin = false;
@@ -53,20 +53,9 @@ public partial class Home
         }
     }
 
-    private async Task OnPhysicalKeyboardClick(KeyboardEventArgs evt)
-    {
-        if (!codle.GameOver) await HandleKeyPress(evt);
-    }
-
-    private async Task OnVisibleKeyboardClick(string letter)
-    {
-        var evt = new KeyboardEventArgs { Key = letter, Code = letter };
-        Console.WriteLine(evt);
-        await HandleKeyPress(evt);
-    }
-
     private async Task HandleKeyPress(KeyboardEventArgs evt)
     {
+        await CodleResetFix.FocusAsync();
         _board.CurrentGuess = _board.CurrentGuess.ToLower();
         Console.WriteLine($"Key: {evt.Key}, Code: {evt.Code}");
 
