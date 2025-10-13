@@ -2,7 +2,7 @@
 
 namespace CodleWeb.Components.Elements;
 
-public partial class TextBlock
+public partial class Header
 {
   [Parameter] public string Message { get; set; } = "";
   [Parameter] public bool GameOver { get; set; } = false;

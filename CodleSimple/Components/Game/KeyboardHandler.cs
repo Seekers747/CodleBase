@@ -1,17 +1,24 @@
-﻿using Microsoft.AspNetCore.Components.Web;
+﻿using CodleLogic;
+using CodleWeb.Components.Pages;
+using CodleWeb.Components.Services;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace CodleWeb.Components.Game;
 
-public class KeyboardHandler(GameBoard board,Func<Task> focusCallback, Func<Task> HandleEnter)
+public class KeyboardHandler(
+    GameBoard board,
+    Codle codle,
+    Validate validate,
+    UpdateLetters updateLetters,
+    Func<Task> focusCallback,
+    IGameSessionService gameSessionService,
+    Func<Task> statehaschanged,
+    Home home)
 {
-    private readonly GameBoard _board = board;
-    private readonly Func<Task> _focusCallback = focusCallback;
-    private readonly Func<Task> _handleEnterCallback = HandleEnter;
-
-    public async Task HandleKeyPress(KeyboardEventArgs evt)
+  public async Task HandleKeyPress(KeyboardEventArgs evt)
     {
-        await _focusCallback.Invoke();
-        _board.CurrentGuess = _board.CurrentGuess.ToLower();
+        await focusCallback.Invoke();
+        board.CurrentGuess = board.CurrentGuess.ToLower();
         Console.WriteLine($"Key: {evt.Key}, Code: {evt.Code}");
 
         switch (evt.Code)
@@ -20,10 +27,10 @@ public class KeyboardHandler(GameBoard board,Func<Task> focusCallback, Func<Task
                 HandleBackspace();
                 return;
             case "Enter":
-                await _handleEnterCallback();
+                await HandleEnter();
                 return;
             case "Tab":
-                await _focusCallback.Invoke();
+                await focusCallback.Invoke();
                 return;
         }
 
@@ -35,22 +42,54 @@ public class KeyboardHandler(GameBoard board,Func<Task> focusCallback, Func<Task
 
     public void HandleLetterInput(char key)
     {
-        if (_board.CurrentGuess.Length >= 5 || _board.CurrentColumn >= 5) return;
+        if (board.CurrentGuess.Length >= 5 || board.CurrentColumn >= 5) return;
 
         char upperKey = char.ToUpper(key);
-        _board.CurrentGuess += upperKey;
-        _board.Grid[_board.CurrentRow, _board.CurrentColumn] = upperKey;
-        _board.GridStyles[_board.CurrentRow, _board.CurrentColumn] = "typed";
-        _board.CurrentColumn++;
+        board.CurrentGuess += upperKey;
+        board.Grid[board.CurrentRow, board.CurrentColumn] = upperKey;
+        board.GridStyles[board.CurrentRow, board.CurrentColumn] = "typed";
+        board.CurrentColumn++;
     }
 
     public void HandleBackspace()
     {
-        if (_board.CurrentGuess.Length == 0 || _board.CurrentColumn == 0) return;
+        if (board.CurrentGuess.Length == 0 || board.CurrentColumn == 0) return;
 
-        _board.CurrentGuess = _board.CurrentGuess[..^1];
-        _board.CurrentColumn--;
-        _board.GridStyles[_board.CurrentRow, _board.CurrentColumn] = "";
-        _board.Grid[_board.CurrentRow, _board.CurrentColumn] = ' ';
+        board.CurrentGuess = board.CurrentGuess[..^1];
+        board.CurrentColumn--;
+        board.GridStyles[board.CurrentRow, board.CurrentColumn] = "";
+        board.Grid[board.CurrentRow, board.CurrentColumn] = ' ';
+    }
+
+    public async Task HandleEnter()
+    {
+        if (board.CurrentGuess.Length != 5 || board.CurrentRow > 6 || !board.CurrentGuess.All(char.IsLetter)) return;
+        if (!validate.CheckIfGuessIsValidWord(board.CurrentGuess)) return;
+
+        codle.MakeGuess(board.CurrentGuess);
+        updateLetters.CheckCorrectLetters(board.CurrentGuess);
+
+        if (string.Equals(board.CurrentGuess, codle.CodleWord, StringComparison.OrdinalIgnoreCase))
+        {
+            await gameSessionService.ResetRestartCountAsync();
+            home.UnfinishedRestartCount = await gameSessionService.GetUnfinishedRestartCountAsync();
+            home.DidPlayerWin = true;
+            home.FinishedGameFair = true;
+            home.IsRestartBlocked = home.UnfinishedRestartCount >= 3;
+            await statehaschanged.Invoke();
+        }
+
+        board.CurrentGuess = string.Empty;
+        board.CurrentRow++;
+        board.CurrentColumn = 0;
+
+        if (board.CurrentRow >= 6)
+        {
+            await gameSessionService.ResetRestartCountAsync();
+            home.UnfinishedRestartCount = await gameSessionService.GetUnfinishedRestartCountAsync();
+            home.FinishedGameFair = true;
+            home.IsRestartBlocked = home.UnfinishedRestartCount >= 3;
+            await statehaschanged.Invoke();
+        }
     }
 }

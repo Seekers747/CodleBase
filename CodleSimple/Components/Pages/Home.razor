@@ -8,24 +8,26 @@
 <PageTitle>Home</PageTitle>
 
 <div class="Codle" @ref="CodleResetFix" @onkeydown="_keyboardHandler.HandleKeyPress" tabindex="0">
-    <TextBlock 
+    <Header 
       Message="@codle.Message"
       GameOver="@codle.GameOver"
       CodleWordExplain="@codle.CodleWordExplain" />
     <GameGrid Grid="@_board.Grid" GridStyles="@_board.GridStyles" />
-    <RestartButton 
-      Codle="@codle"
-      Board="@_board"
-      KeyboardStyle="@VisibleKeyboardStyle"
-      DidPlayerWin="@DidPlayerWin"
-      FinishedGameFair="@FinishedGameFair"
-      UnfinishedRestartCount="@UnfinishedRestartCount"
-      FocusAction="async () => await CodleResetFix.FocusAsync()"
-      IncrementRestart="async () => await GameSessionService.IncrementRestartCountAsync()"
-      GetUnfinishedRestart="async () => await GameSessionService.GetUnfinishedRestartCountAsync()"
-      StateHasChangedCallback="() => { StateHasChanged(); return Task.CompletedTask; }"
-      SetIsRestartBlocked="(val) => { IsRestartBlocked = val; StateHasChanged(); return Task.CompletedTask; }"
-      Disabled="@IsRestartBlocked" />
+    <RestartButton Codle="@codle"
+                 Board="@_board"
+                 KeyboardStyle="@VisibleKeyboardStyle"
+                 DidPlayerWin="@DidPlayerWin"
+                 FinishedGameFair="@FinishedGameFair"
+                 UnfinishedRestartCount="@UnfinishedRestartCount"
+                 FocusAction="async () => await CodleResetFix.FocusAsync()"
+                 IncrementRestart="async () => await GameSessionService.IncrementRestartCountAsync()"
+                 GetUnfinishedRestart="async () => await GameSessionService.GetUnfinishedRestartCountAsync()"
+                 StateHasChangedCallback="() => { StateHasChanged(); return Task.CompletedTask; }"
+                 SetIsRestartBlocked="(val) => IsRestartBlocked = val"
+                 SetFinishedGameFair="(val) => FinishedGameFair = val"
+                 SetUnfinishedRestartCount="(val) => UnfinishedRestartCount = val"
+                 SetDidPlayerWin="(val) => DidPlayerWin = val"
+                 Disabled="@IsRestartBlocked" />
     <VisibleKeyboard
       Rows="@VisibleKeyboardRows"
       OnKeyClick="_keyboardHandler.HandleKeyPress"
